@@ -1,64 +1,69 @@
-# Nuxt Starter Template
+# Boomba
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+**Boomba** is a local-first pantry management Progressive Web App (PWA) designed to help users organize their food inventory, track expiry dates, and reduce food waste.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+Built with Nuxt 4 and Vue 3, Boomba prioritizes local data storage while using server-powered push notifications to deliver timely reminders—even when the app is closed.
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+## Features
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
+- **Pantry Management** – Add, organize, and manage pantry items.
+- **Expiry Tracking** – Keep track of food expiry dates.
+- **Push Notifications** – Receive reminders about items that need attention.
+- **Offline-First** – Store pantry data locally using IndexedDB.
+- **PWA Support** – Install Boomba on supported devices and use it like a native app.
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+## Tech Stack
 
-## Quick Start
+- [Nuxt 4](https://nuxt.com/)
+- [Vue 3](https://vuejs.org/)
+- TypeScript
+- [RxDB](https://rxdb.info/)
+- IndexedDB
+- Web Push API
+- Service Workers
 
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
+## Getting Started
 
-## Deploy your own
+### Prerequisites
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+- Node.js
+- pnpm
 
-## Setup
-
-Make sure to install the dependencies:
+### Installation
 
 ```bash
+git clone <repository-url>
+cd boomba
 pnpm install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+### Development
 
 ```bash
 pnpm dev
 ```
 
-## Production
+Open `http://localhost:3000` in your browser.
 
-Build the application for production:
+### Production Build
 
 ```bash
 pnpm build
 ```
 
-Locally preview production build:
+## Architecture
 
-```bash
-pnpm preview
-```
+Boomba follows a local-first architecture:
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Pantry records are stored on the user's device using IndexedDB through RxDB.
+- The server handles push subscriptions and scheduled reminders.
+- Web Push delivers notifications through the browser's push service.
+- The service worker displays notifications even when the PWA is not open.
 
-## Renovate integration
+## Project Status
 
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+Under active development.
+
+## License
+
+To be determined.
