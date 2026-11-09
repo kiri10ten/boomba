@@ -22,10 +22,8 @@ Built with Nuxt 4, Vue 3, TypeScript, and a scalable backend architecture, Boomb
 - [Offline Support](#offline-support)
 - [Security](#security)
 - [Infrastructure and Deployment](#infrastructure-and-deployment)
-- [Monetization](#monetization)
 - [Development Roadmap](#development-roadmap)
 - [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
 
 ---
 
@@ -513,8 +511,8 @@ Monetization should be introduced after the core product delivers consistent val
 ## Development Roadmap
 
 ### Phase 1 — Foundation
-- [ ] Initialize Nuxt 4 application.
-- [ ] Configure TypeScript.
+- [x] Initialize Nuxt 4 application.
+- [x] Configure TypeScript.
 - [ ] Establish monorepo structure.
 - [ ] Configure Docker.
 - [ ] Set up PostgreSQL.
@@ -554,14 +552,6 @@ Monetization should be introduced after the core product delivers consistent val
 - [ ] Integrate Capacitor.
 - [ ] Configure Android notifications.
 - [ ] Generate signed Android release.
-
-### Phase 6 — Advanced Features
-- [ ] Household management.
-- [ ] Meal planning.
-- [ ] Smart recommendations.
-- [ ] Subscription management.
-- [ ] Razorpay integration.
-- [ ] Analytics and monitoring.
 
 ---
 
