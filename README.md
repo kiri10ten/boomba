@@ -600,51 +600,6 @@ The exact commands will depend on the package scripts configured in the reposito
 
 ---
 
-## Environment Variables
-
-Example configuration:
-
-```env
-# Application
-NODE_ENV=development
-APP_URL=http://localhost:3000
-
-# Database
-DATABASE_URL=
-
-# Redis
-REDIS_URL=
-
-# Authentication
-AUTH_SECRET=
-
-# Firebase
-FIREBASE_PROJECT_ID=
-FIREBASE_CLIENT_EMAIL=
-FIREBASE_PRIVATE_KEY=
-
-# Web Push
-VAPID_PUBLIC_KEY=
-VAPID_PRIVATE_KEY=
-VAPID_SUBJECT=
-
-# Object Storage
-S3_ENDPOINT=
-S3_BUCKET=
-S3_ACCESS_KEY=
-S3_SECRET_KEY=
-
-# Payments
-RAZORPAY_KEY_ID=
-RAZORPAY_KEY_SECRET=
-
-# Monitoring
-SENTRY_DSN=
-```
-
-Never commit `.env` files or production secrets.
-
----
 
 ## Engineering Principles
 
@@ -667,7 +622,7 @@ Never commit `.env` files or production secrets.
 
 **Implementation:** In progress.
 
-The architecture and roadmap describe the intended product. Individual features should be marked complete only after implementation, testing, and deployment.
+The architecture and roadmap describe the intended product. Mark individual features complete only after implementation, testing, and deployment.
 
 ---
 
