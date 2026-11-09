@@ -1,29 +1,31 @@
 # Boomba
 
-**A smarter way to manage your pantry, groceries, household inventory, and food expenses.**
+**Know your pantry. Waste less. Spend smarter.**
 
-Boomba is a modern pantry management platform designed to help individuals and households track groceries, monitor expiry dates, manage shopping lists, understand spending patterns, and reduce food waste.
+Boomba is a modern pantry and household grocery management platform designed to simplify how individuals and households manage groceries, track inventory, monitor expiry dates, plan meals, and understand their spending.
 
-Built with Nuxt 4, Vue 3, TypeScript, and a scalable backend architecture, Boomba aims to provide a reliable experience across web and Android, with offline access and cloud synchronization.
+Built with Nuxt 4, Vue 3, TypeScript, NuxtHub, and Cloudflare, Boomba aims to deliver a reliable, scalable, and responsive experience across web and Android.
 
-> **Project direction:** Production-ready, cloud-backed application with offline capabilities — not a local-storage-only application.
+The platform combines cloud-based data management with offline capabilities, background processing, and intelligent notifications.
 
 ---
 
 ## Table of Contents
 
-- [Vision](#vision)
-- [Core Features](#core-features)
-- [Technology Stack](#technology-stack)
-- [System Architecture](#system-architecture)
-- [Application Modules](#application-modules)
-- [Notifications](#notifications)
-- [Data Architecture](#data-architecture)
-- [Offline Support](#offline-support)
-- [Security](#security)
-- [Infrastructure and Deployment](#infrastructure-and-deployment)
-- [Development Roadmap](#development-roadmap)
-- [Getting Started](#getting-started)
+1. [Vision](#vision)
+2. [Core Features](#core-features)
+3. [Technology Stack](#technology-stack)
+4. [System Architecture](#system-architecture)
+5. [Application Structure](#application-structure)
+6. [Notifications](#notifications)
+7. [Database Design](#database-design)
+8. [Offline Support](#offline-support)
+9. [Security](#security)
+10. [Infrastructure and Deployment](#infrastructure-and-deployment)
+11. [Monetization](#monetization)
+12. [Development Roadmap](#development-roadmap)
+13. [Getting Started](#getting-started)
+14. [Engineering Principles](#engineering-principles)
 
 ---
 
@@ -31,17 +33,17 @@ Built with Nuxt 4, Vue 3, TypeScript, and a scalable backend architecture, Boomb
 
 Boomba aims to become a complete household grocery management system.
 
-The application should help users answer:
+It helps users answer everyday questions:
 
 - What groceries do I currently have?
-- What is about to expire?
-- What should I purchase?
+- Which products are about to expire?
+- What should I purchase next?
 - How much am I spending on groceries?
-- Which products have become more expensive?
+- How have product prices changed over time?
 - What meals can I prepare with available ingredients?
 - What should my household purchase this week?
 
-The long-term goal is to make household grocery management easier through automation, useful insights, and intelligent recommendations.
+The long-term vision is to reduce food waste, simplify household management, and help people make better purchasing decisions through automation and useful insights.
 
 ---
 
@@ -49,80 +51,79 @@ The long-term goal is to make household grocery management easier through automa
 
 ### 1. Pantry Management
 
-Manage household inventory in one place.
+Manage household inventory from a centralized dashboard.
 
-- Add, edit, and delete pantry items.
+- Add, edit, and remove pantry items.
 - Track quantities and measurement units.
-- Set purchase and expiry dates.
-- Categorize products.
-- Track product prices.
-- View inventory history.
-- Monitor low-stock products.
+- Record purchase and expiry dates.
+- Organize products into categories.
+- Track individual product prices.
+- Maintain inventory history.
+- Identify low-stock products.
 - Search and filter pantry items.
 - Support barcode-based product entry.
 
-### 2. Expiry Tracking
+### 2. Expiry Management
 
-Prevent unnecessary food waste.
+Keep track of product freshness and reduce food waste.
 
-- Track product expiry dates.
+- Monitor product expiry dates.
 - Identify products approaching expiry.
 - Highlight expired products.
 - Configure expiry reminders.
 - View upcoming expiry schedules.
-- Prioritize ingredients that should be consumed first.
+- Prioritize ingredients based on expiry dates.
 
-### 3. Shopping List
+### 3. Shopping Lists
 
-Manage grocery shopping efficiently.
+Make grocery shopping more organized.
 
-- Create multiple shopping lists.
+- Create and manage multiple shopping lists.
 - Add products manually.
-- Add products from low-stock suggestions.
-- Track purchased and pending items.
+- Generate suggestions from low-stock inventory.
+- Track purchased and pending products.
 - Estimate shopping expenses.
 - Convert purchased items into pantry inventory.
 - Maintain shopping history.
 
 ### 4. Billing and Expense Management
 
-Understand grocery spending.
+Track grocery purchases and understand household expenses.
 
 - Create grocery bills.
-- Add products and quantities.
-- Enter actual purchase prices.
+- Add products, quantities, and prices.
 - Calculate subtotals and total expenses.
 - Compare estimated and actual expenses.
-- Maintain purchase history.
+- Maintain purchase records.
 - Export bills as PDF.
 
 ### 5. Price Insights
 
-Track grocery price changes.
+Understand grocery price movements and purchasing patterns.
 
-- Enter product prices.
-- View historical price trends.
-- Compare prices across purchases.
-- Visualize spending through graphs.
+- Enter product prices for analysis.
+- Compare historical product prices.
+- Visualize price changes through graphs.
 - Identify price increases and decreases.
-- Export reports as CSV, PDF, and PNG.
+- Analyze grocery spending.
+- Export reports in CSV, PDF, and PNG formats.
 
-**Privacy rule:** Price Insights data entered for temporary analysis should not be persisted. Keep this data in memory for the active session.
+**Privacy requirement:** Price Insights data provided for temporary analysis must remain in application memory and must not be persisted to the database.
 
 ### 6. Meal Planning
 
-Help users prepare meals using available ingredients.
+Turn available pantry ingredients into practical meal plans.
 
-- View available pantry ingredients.
+- View currently available ingredients.
 - Generate meal suggestions.
-- Build daily and weekly meal schedules.
+- Create daily and weekly meal schedules.
 - Prioritize ingredients approaching expiry.
 - Identify missing ingredients.
-- Add missing ingredients to shopping lists.
+- Add missing ingredients directly to shopping lists.
 
 ### 7. Household Management
 
-Support multiple users managing shared inventory.
+Allow multiple users to manage shared household inventory.
 
 - Create households.
 - Invite household members.
@@ -130,57 +131,74 @@ Support multiple users managing shared inventory.
 - Share pantry inventory.
 - Share shopping lists.
 - Synchronize household changes.
-- Restrict access based on household membership.
+- Enforce household-level access permissions.
 
 ### 8. Push Notifications
 
-Deliver useful reminders even when the application is not actively open.
+Keep users informed even when Boomba is not actively open.
 
-Notification examples:
+Supported notification scenarios:
 
-- Product expiry reminders.
+- Upcoming product expiry.
 - Low-stock alerts.
 - Shopping reminders.
-- Household updates.
+- Household inventory updates.
 - Scheduled meal reminders.
 
-Users should be able to configure notification preferences.
+Users can configure their notification preferences and choose which notifications they want to receive.
 
 ---
 
 ## Technology Stack
+
+Boomba uses a Cloudflare-first architecture, with NuxtHub providing an integrated development experience for Cloudflare infrastructure.
 
 ### Frontend
 
 | Technology | Responsibility |
 |---|---|
 | Nuxt 4 | Application framework |
-| Vue 3 | UI development |
-| TypeScript | Type safety |
+| Vue 3 | Component-based UI |
+| TypeScript | Static type safety |
 | Tailwind CSS | Styling |
-| Pinia | Application state |
+| Pinia | Client-side state management |
 | Capacitor | Android application |
-| PWA | Installable web experience |
+| PWA | Installable web application |
+| Vite PWA | Service worker and PWA integration |
 
 ### Backend
 
 | Technology | Responsibility |
 |---|---|
-| Nitro | Server runtime and API |
-| Drizzle ORM | Database access |
+| Nitro | Server runtime and API endpoints |
+| NuxtHub | Cloudflare infrastructure integration |
+| Drizzle ORM | Database access and schema management |
 | Zod | Request validation |
-| PostgreSQL | Primary database |
-| Redis | Caching and job coordination |
-| BullMQ | Background job processing |
+| Cloudflare Workers | Application execution |
 
-### Notifications and Storage
+### Cloud Infrastructure
 
 | Technology | Responsibility |
 |---|---|
-| Firebase Cloud Messaging | Android push notifications |
+| Cloudflare Workers | Application hosting and server execution |
+| Cloudflare D1 | Relational database |
+| Cloudflare R2 | Object and file storage |
+| Cloudflare KV | Lightweight key-value storage and caching |
+| Cloudflare Queues | Asynchronous background processing |
+| Cloudflare Cron Triggers | Scheduled tasks |
+| Cloudflare CDN | Content delivery |
+| Cloudflare DNS | Domain management |
+
+### Notifications
+
+| Technology | Responsibility |
+|---|---|
 | Web Push API | Browser push notifications |
-| VAPID / web-push | Browser push delivery |
-| S3-compatible storage | Images, receipts, and attachments |
+| VAPID | Web Push authentication |
+| Firebase Cloud Messaging | Android push notifications |
+| Service Workers | Browser notification handling |
+| Cloudflare Queues | Notification processing |
+| Cloudflare Cron Triggers | Scheduled reminders |
 
 ### Payments and Monitoring
 
@@ -188,85 +206,101 @@ Users should be able to configure notification preferences.
 |---|---|
 | Razorpay | Payment processing |
 | Sentry | Error monitoring |
-| OpenTelemetry | Application observability |
+| Cloudflare Analytics | Traffic and infrastructure analytics |
 
-### Infrastructure and DevOps
+### Development and CI/CD
 
 | Technology | Responsibility |
 |---|---|
-| Docker | Containerization |
-| GitHub Actions | CI/CD |
-| Cloud hosting | Application deployment |
-| Managed PostgreSQL | Database hosting |
-| Managed Redis | Queue infrastructure |
-| S3-compatible object storage | File storage |
+| Git | Version control |
+| GitHub | Source code management |
+| GitHub Actions | Automated testing and CI/CD |
+| Docker | Local development infrastructure |
+| Wrangler | Cloudflare development and deployment CLI |
 
 ---
 
 ## System Architecture
 
-Boomba follows a modular, server-authoritative architecture.
+Boomba follows a modular, server-authoritative architecture built around Nuxt and Cloudflare.
+
+### High-level architecture
 
 ```text
-                   CLIENT APPLICATIONS
-                 ┌──────────────────────┐
-                 │                      │
-                 │     Nuxt 4 Web       │
-                 │                      │
-                 │    Android App       │
-                 │     Capacitor        │
-                 │                      │
-                 └──────────┬───────────┘
-                            │
-                       HTTPS / REST
-                            │
-                 ┌──────────▼───────────┐
-                 │                      │
-                 │      Nitro API       │
-                 │                      │
-                 │ Authentication       │
-                 │ Business Logic       │
-                 │ Validation           │
-                 │ Authorization        │
-                 │                      │
-                 └──────────┬───────────┘
-                            │
-               ┌────────────┼────────────┐
-               │            │            │
-        ┌──────▼─────┐ ┌────▼─────┐ ┌────▼──────┐
-        │            │ │          │ │           │
-        │ PostgreSQL │ │  Redis   │ │    S3     │
-        │            │ │          │ │  Storage  │
-        └────────────┘ └────┬─────┘ └───────────┘
-                            │
-                     ┌──────▼──────┐
-                     │             │
-                     │ BullMQ      │
-                     │ Workers     │
-                     │             │
-                     └──────┬──────┘
-                            │
-                    ┌───────▼────────┐
-                    │                │
-                    │ Notification   │
-                    │ Services       │
-                    │                │
-                    └────────────────┘
+                CLIENT APPLICATIONS
+          ┌──────────────────────────┐
+          │                          │
+          │       Nuxt 4 Web         │
+          │                          │
+          │      Android App         │
+          │       Capacitor          │
+          │                          │
+          └────────────┬─────────────┘
+                       │
+                    HTTPS
+                       │
+          ┌────────────▼─────────────┐
+          │                          │
+          │    Cloudflare Workers    │
+          │                          │
+          │       Nitro API          │
+          │                          │
+          └────────────┬─────────────┘
+                       │
+          ┌────────────▼─────────────┐
+          │                          │
+          │        NuxtHub           │
+          │                          │
+          └────────────┬─────────────┘
+                       │
+          ┌────────────┼─────────────┐
+          │            │             │
+     ┌────▼────┐  ┌────▼────┐  ┌─────▼────┐
+     │         │  │         │  │          │
+     │   D1    │  │   R2    │  │    KV    │
+     │         │  │         │  │          │
+     └─────────┘  └─────────┘  └──────────┘
+                       │
+              ┌────────▼─────────┐
+              │                  │
+              │ Cloudflare       │
+              │ Queues           │
+              │                  │
+              └────────┬─────────┘
+                       │
+              ┌────────▼─────────┐
+              │                  │
+              │ Background       │
+              │ Processing       │
+              │                  │
+              └────────┬─────────┘
+                       │
+              ┌────────▼─────────┐
+              │                  │
+              │ Push Notification│
+              │ Services         │
+              │                  │
+              └──────────────────┘
 ```
 
 ### Architectural principles
 
-1. PostgreSQL is the source of truth.
-2. Business logic belongs on the server.
-3. Clients communicate with Nitro APIs.
-4. Background processing must not depend on an active browser session.
-5. Offline data is synchronized with the backend.
-6. Household data must be isolated through authorization.
-7. External services should be integrated through modular adapters.
+1. Cloudflare D1 acts as the primary relational data store.
+2. Nitro handles server-side APIs and business logic.
+3. NuxtHub integrates the application with Cloudflare services.
+4. Cloudflare Workers execute application code.
+5. Cloudflare Queues handle asynchronous tasks.
+6. Cron Triggers execute scheduled operations.
+7. R2 stores uploaded files and attachments.
+8. KV is reserved for lightweight caching and temporary data.
+9. Offline data is synchronized with the backend.
+10. Household data is isolated through authorization.
 
 ---
 
-## Application Modules
+## Application Structure
+
+Proposed monorepo organization:
 
 ```text
 boomba/
@@ -299,87 +333,92 @@ boomba/
 │   ├── notifications/
 │   └── scheduled-jobs/
 │
-├── infrastructure/
-│   ├── docker/
-│   └── deployment/
-│
 ├── docs/
 │
 ├── .github/
 │   └── workflows/
 │
-├── docker-compose.yml
+├── nuxt.config.ts
 ├── package.json
 └── README.md
 ```
 
-This is the proposed monorepo organization; individual modules can be introduced incrementally.
+This structure is a proposed organization. Modules can be introduced incrementally as the application grows.
 
 ---
 
 ## Notifications
 
-Boomba uses server-driven notifications.
+Boomba uses server-driven notification delivery.
 
-### Android
+Notifications should not depend on an active browser session or a running frontend application.
 
-```text
-Expiry Date
-    |
-    v
-PostgreSQL
-    |
-    v
-BullMQ Scheduler
-    |
-    v
-Background Worker
-    |
-    v
-Firebase Cloud Messaging
-    |
-    v
-Android Notification
-```
-
-### Browser PWA
+### Browser PWA notifications
 
 ```text
-User Permission
-    |
-    v
-Push Subscription
-    |
-    v
-Nitro API
-    |
-    v
-PostgreSQL
-    |
-    v
-Background Worker
-    |
-    v
-Web Push Service
-    |
-    v
+User grants permission
+        |
+        v
 Service Worker
-    |
-    v
+        |
+        v
+Push Subscription
+        |
+        v
+Nitro API
+        |
+        v
+Cloudflare D1
+        |
+        v
+Cloudflare Queues
+        |
+        v
+Web Push Service
+        |
+        v
+Service Worker
+        |
+        v
 Browser Notification
 ```
 
-Example notification schedule:
+### Android notifications
 
-- Three days before expiry.
-- One day before expiry.
-- On the expiry date.
+```text
+Scheduled Event
+        |
+        v
+Cloudflare Cron Trigger
+        |
+        v
+Cloudflare Worker
+        |
+        v
+Cloudflare Queues
+        |
+        v
+Firebase Cloud Messaging
+        |
+        v
+Android Notification
+```
 
-Notification delivery must be idempotent to prevent duplicate reminders.
+### Example notification schedule
+
+| Event | Notification |
+|---|---|
+| 3 days before expiry | Upcoming expiry reminder |
+| 1 day before expiry | Expiry warning |
+| On expiry date | Expiry notification |
+| Low inventory | Restock reminder |
+| Scheduled time | Meal reminder |
+
+Notification delivery must be idempotent to prevent duplicate notifications.
 
 ---
 
-## Data Architecture
+## Database Design
 
 Initial database entities:
 
@@ -387,110 +426,140 @@ Initial database entities:
 |---|---|
 | users | User accounts |
 | households | Household information |
-| household_members | Household membership and roles |
+| household_members | Household roles and memberships |
 | products | Product catalog |
 | pantry_items | Household inventory |
 | purchases | Grocery purchase records |
-| shopping_lists | Shopping lists |
-| shopping_list_items | Individual shopping items |
+| shopping_lists | Shopping list management |
+| shopping_list_items | Shopping list entries |
 | subscriptions | User subscription information |
 | devices | Registered notification devices |
 
-Additional tables can be introduced for notification history, uploaded files, and meal plans.
+Additional tables can be introduced for notification history, uploaded files, meal plans, and other modules.
 
-### Important data rules
+### Data management principles
 
 - Use UUID primary keys.
 - Store timestamps consistently in UTC.
-- Validate incoming data with Zod.
+- Validate external inputs using Zod.
 - Enforce household-level authorization.
-- Use database transactions for multi-step inventory updates.
+- Use database transactions for inventory operations.
 - Maintain purchase history separately from current inventory.
-- Avoid persisting temporary Price Insights data.
+- Do not persist temporary Price Insights data.
 
 ---
 
 ## Offline Support
 
-Boomba should remain useful when the internet connection is unavailable.
+Boomba is designed to provide essential functionality even when internet connectivity is unavailable.
 
-The offline strategy includes:
+The offline architecture includes:
 
-- Cache application assets.
-- Cache appropriate API responses.
-- Maintain a local IndexedDB cache.
-- Queue supported user actions while offline.
-- Synchronize changes when connectivity returns.
-- Handle synchronization conflicts explicitly.
+- PWA installation.
+- Service worker-based application caching.
+- IndexedDB for local data caching.
+- Offline action queues.
+- Background synchronization when connectivity returns.
+- Conflict detection and resolution.
+- Server-side validation during synchronization.
 
-**Important:** Offline storage is a cache, not the authoritative database.
-
-The server remains the source of truth.
+The cloud database remains the source of truth. Local IndexedDB data is used to provide offline access and improve application responsiveness.
 
 ---
 
 ## Security
 
-Security requirements:
+Security is a core requirement.
+
+Boomba should implement:
 
 - Secure authentication and session management.
 - Password hashing.
 - Server-side input validation.
 - Household-level authorization.
-- Rate limiting.
+- API rate limiting.
 - HTTPS-only production communication.
-- Secure handling of notification tokens.
+- Secure notification subscription storage.
 - Environment-based secrets.
-- Signed upload URLs for private files.
+- Signed URLs for private file uploads.
 - Payment webhook signature verification.
 - Protection against unauthorized inventory access.
 
-Never expose database credentials, API secrets, or VAPID private keys in frontend code.
+Never expose database credentials, API secrets, Firebase credentials, or VAPID private keys in frontend code.
 
 ---
 
 ## Infrastructure and Deployment
 
-### Development
+### Development Environment
 
-- Docker Compose for local PostgreSQL and Redis.
-- Local Nitro development server.
-- Environment-based configuration.
+- Nuxt 4 development server.
+- NuxtHub development integration.
+- Cloudflare Wrangler.
+- Local database and storage development bindings.
+- Environment-specific configuration.
 - Database migrations.
 - Separate development and production credentials.
 
-### Production
+### Production Environment
 
-- Deploy Nuxt/Nitro API as a containerized service.
-- Run background workers separately.
-- Use managed PostgreSQL.
-- Use managed Redis.
-- Store uploaded files in S3-compatible storage.
-- Automate deployment through GitHub Actions.
-- Monitor errors and application performance.
-- Configure automated database backups.
+- Cloudflare Workers for application hosting.
+- NuxtHub for infrastructure integration.
+- Cloudflare D1 for relational data.
+- Cloudflare R2 for object storage.
+- Cloudflare KV for caching.
+- Cloudflare Queues for background processing.
+- Cloudflare Cron Triggers for scheduled jobs.
+- GitHub Actions for automated testing and deployment.
+- Sentry for application error monitoring.
 
 ### Deployment environments
 
 | Environment | Purpose |
 |---|---|
 | Local | Development |
-| Staging | Testing and validation |
-| Production | Real users |
+| Preview / Staging | Testing and validation |
+| Production | Live application |
+
+### Deployment workflow
+
+```text
+Developer pushes code
+        |
+        v
+GitHub Repository
+        |
+        v
+GitHub Actions
+        |
+        v
+Lint and Type Checks
+        |
+        v
+Automated Tests
+        |
+        v
+Production Build
+        |
+        v
+Cloudflare Workers Deployment
+```
 
 ---
 
 ## Monetization
 
-Potential revenue streams:
+Boomba will follow a freemium business model.
 
 ### Free Plan
+
 - Basic pantry management.
 - Shopping lists.
 - Expiry tracking.
 - Basic expense calculations.
 
 ### Premium Plan
+
 - Advanced price insights.
 - Detailed expense reports.
 - Advanced meal planning.
@@ -499,28 +568,31 @@ Potential revenue streams:
 - Extended purchase history.
 
 ### Future Opportunities
+
 - Grocery price comparisons.
 - Affiliate partnerships.
 - Advanced household analytics.
-- Premium AI-powered meal recommendations.
+- AI-powered meal recommendations.
 
-Monetization should be introduced after the core product delivers consistent value.
+Monetization will be introduced after the core product delivers consistent value.
 
 ---
 
 ## Development Roadmap
 
 ### Phase 1 — Foundation
+
 - [x] Initialize Nuxt 4 application.
 - [x] Configure TypeScript.
-- [ ] Establish monorepo structure.
-- [ ] Configure Docker.
-- [ ] Set up PostgreSQL.
-- [ ] Configure Drizzle ORM.
+- [ ] Configure NuxtHub.
+- [ ] Configure Cloudflare Workers.
+- [ ] Establish application architecture.
+- [ ] Configure database access.
 - [ ] Implement authentication.
 - [ ] Establish CI/CD.
 
 ### Phase 2 — Core Pantry
+
 - [ ] Product catalog.
 - [ ] Pantry CRUD.
 - [ ] Quantity management.
@@ -529,6 +601,7 @@ Monetization should be introduced after the core product delivers consistent val
 - [ ] Search and filtering.
 
 ### Phase 3 — Shopping and Billing
+
 - [ ] Shopping lists.
 - [ ] Purchase management.
 - [ ] Billing calculations.
@@ -537,21 +610,32 @@ Monetization should be introduced after the core product delivers consistent val
 - [ ] Price Insights.
 
 ### Phase 4 — Notifications
-- [ ] Configure Redis.
-- [ ] Set up BullMQ.
-- [ ] Implement background workers.
-- [ ] Integrate Firebase Cloud Messaging.
+
+- [ ] Configure Cloudflare Queues.
+- [ ] Configure Cron Triggers.
+- [ ] Implement background processing.
 - [ ] Implement browser Web Push.
+- [ ] Integrate Firebase Cloud Messaging.
 - [ ] Add notification preferences.
 - [ ] Implement duplicate prevention.
 
 ### Phase 5 — Offline and Mobile
+
 - [ ] Implement PWA support.
-- [ ] Implement IndexedDB cache.
+- [ ] Implement IndexedDB caching.
 - [ ] Implement synchronization.
 - [ ] Integrate Capacitor.
 - [ ] Configure Android notifications.
 - [ ] Generate signed Android release.
+
+### Phase 6 — Advanced Features
+
+- [ ] Household management.
+- [ ] Meal planning.
+- [ ] Smart recommendations.
+- [ ] Subscription management.
+- [ ] Razorpay integration.
+- [ ] Analytics and monitoring.
 
 ---
 
@@ -561,9 +645,9 @@ Monetization should be introduced after the core product delivers consistent val
 
 - Node.js (LTS)
 - pnpm
-- Docker
-- PostgreSQL
-- Redis
+- Git
+- Cloudflare account
+- Wrangler CLI
 
 ### Installation
 
@@ -574,55 +658,72 @@ cd boomba
 pnpm install
 ```
 
-### Start infrastructure
+### Configure Cloudflare
+
+Authenticate with Cloudflare:
 
 ```bash
-docker compose up -d
+npx wrangler login
 ```
 
-### Configure environment variables
+Configure the required Cloudflare resources and NuxtHub bindings.
 
-Create a `.env` file using `.env.example` as the reference.
+### Environment Configuration
 
-### Run database migrations
+Create a `.env` file based on `.env.example`.
+
+Configure the required development and production environment variables.
+
+### Database Migrations
+
+Run the configured database migration command:
 
 ```bash
 pnpm db:migrate
 ```
 
-### Start development
+### Start Development
 
 ```bash
 pnpm dev
 ```
 
-The exact commands will depend on the package scripts configured in the repository.
+### Production Deployment
+
+```bash
+pnpm build
+```
+
+Deploy using the configured Cloudflare Workers deployment workflow.
+
+The exact commands depend on the NuxtHub and Wrangler configuration used by the project.
 
 ---
-
 
 ## Engineering Principles
 
 1. Build features as independent modules.
 2. Prefer maintainable code over premature optimization.
-3. Keep frontend components focused.
+3. Keep frontend components focused and reusable.
 4. Separate API, database, and business logic.
 5. Use TypeScript strictly.
 6. Validate all external inputs.
 7. Test critical business logic.
-8. Keep background processing independent of HTTP requests.
+8. Keep background processing independent of frontend sessions.
 9. Design for multiple households and users.
-10. Make security and data integrity non-negotiable.
+10. Prioritize security and data integrity.
+11. Optimize infrastructure costs as the product scales.
+12. Avoid unnecessary third-party dependencies.
 
 ---
 
 ## Project Status
 
-**Architecture:** Production-oriented design.
+**Architecture:** Cloudflare-first, production-oriented design.
 
 **Implementation:** In progress.
 
-The architecture and roadmap describe the intended product. Mark individual features complete only after implementation, testing, and deployment.
+The technology stack and roadmap describe the intended architecture. Features should only be marked complete after implementation, testing, and deployment.
 
 ---
 
